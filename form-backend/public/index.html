@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="Creator : Arda Aydoğdu" />
+  <title>çernobil</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      padding: 20px;
+    }
+
+    .footer {
+      font-size: 14px;
+      color: #888;
+      text-align: center;
+      padding: 20px;
+      border-top: 1px solid #eee;
+      margin-top: 50px;
+    }
+
+    .footer span {
+      font-weight: 600;
+      color: #333;
+    }
+
+    form {
+      margin-bottom: 30px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Çernobil Formu</h2>
+
+  <form id="kullaniciForm">
+    <label for="ad">E-Posta:</label>
+    <input type="text" name="ad" id="ad" placeholder="Örn : denizsahin@gmail.com" required />
+    <br /><br />
+
+    <label for="sifre">Password:</label>
+    <input type="password" name="sifre" id="sifre" placeholder="********" required minlength="8" maxlength="15" />
+    <br /><br />
+
+    <label><input type="radio" name="Cinsiyet" value="male" /> male</label>
+    <label><input type="radio" name="Cinsiyet" value="female" /> female</label>
+    <br /><br />
+
+    <input type="reset" />
+    <input type="submit" value="Gönder" />
+  </form>
+
+  <p id="mesaj" style="font-weight: bold;"></p>
+
+  <hr />
+  <p>
+    <b>↓↓↓↓↓↓↓↓</b> chernobyl Hakkinda Daha Fazla Bilgi İçin <b>↓↓↓↓↓↓↓↓</b>
+  </p>
+  <a href="https://tr.wikipedia.org/wiki/%C3%87ernobil_Facias%C4%B1" target="_blank">
+    <img
+      src="fotograf/cernobilanisi.png"
+      alt="çernobil gorbaçov yüzünden patladi"
+      width="350px"
+      title="bomboclat"
+    />
+  </a>
+
+  <br /><br />
+  <a href="https://www.youtube.com/watch?v=yWQ52xwqDIM&pp=ygUJY2hlcm5vYnls" target="_blank" title="korkmana gerek yok">
+    Murat Soner Evrenin EN Dizisi
+  </a>
+
+  <br /><br />
+  <table bgcolor="black" width="150">
+    <tr bgcolor="grey">
+      <th width="50">26</th>
+      <th width="50">Nisan</th>
+      <th width="50">1986</th>
+    </tr>
+    <tr align="center" bgcolor="lightgrey">
+      <td>01</td>
+      <td>23</td>
+      <td>Moskova Saati UTC +4</td>
+    </tr>
+  </table>
+
+  <br /><br />
+  <a
+    href="https://www.eyeofriyadh.com/news/details/topgolf-adds-a-new-dimension-to-dubai-as-a-golfing-destination"
+    target="_blank"
+  >
+    <h3>sakin tiklama!</h3>
+  </a>
+
+  <br />
+  <iframe src="https://www.youtube.com/" frameborder="0" width="300" height="200"></iframe>
+  <br /><br />
+  <h4>Bu Site Amatörlerin verilerini çalmak için geliştirildi</h4>
+
+  <div class="footer">
+    Copyright © Tüm Hakları Saklıdır. Creator: <span>Arda Aydoğdu</span>
+  </div>
+
+  <script>
+    document.getElementById('kullaniciForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData.entries());
+
+      const response = await fetch('/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+
+      const mesaj = await response.text();
+      document.getElementById('mesaj').textContent = mesaj;
+    });
+  </script>
+</body>
+</html>
