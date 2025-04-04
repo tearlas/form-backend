@@ -1,28 +1,29 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const fs = require('fs');
 const cors = require('cors');
-const app = express();
-const port = 3000;
 
-app.use(cors());
+const app = express();
+const port = process.env.PORT || 3000;
+
+// Middleware
+app.use(cors()); // CORS aktif!
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(express.static('public'));
 
+// Formdan gelen veriyi al
 app.post('/submit', (req, res) => {
     const { ad, sifre, Cinsiyet } = req.body;
-    const veri = `E-Posta: ${ad}, Şifre: ${sifre}, Cinsiyet: ${Cinsiyet}\n`;
 
-    fs.appendFile('kullanicilar.txt', veri, (err) => {
-        if (err) {
-            console.error(err);
-            return res.status(500).send('Hata oluştu.');
-        }
-        res.send('Veri başarıyla kaydedildi!');
-    });
+    console.log('Gelen veri:', req.body);
+
+    res.send('Form başarıyla alındı!');
+});
+
+// Root test
+app.get('/', (req, res) => {
+    res.send('Sunucu çalışıyor!');
 });
 
 app.listen(port, () => {
-    console.log(`Sunucu çalışıyor http://localhost:${port}`);
+    console.log(`Sunucu çalışıyor: http://localhost:${port}`);
 });
